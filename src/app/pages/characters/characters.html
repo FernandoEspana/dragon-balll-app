@@ -1,0 +1,7 @@
+<main
+  class="grid min-h-dvh grid-cols-[repeat(auto-fit,21.25rem)] content-start justify-center gap-6 bg-neutral-950 p-8"
+>
+  @for (character of characters(); track character.id) {
+    <app-card [character]="character" />
+  }
+</main>
