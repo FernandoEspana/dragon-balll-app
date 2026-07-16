@@ -7,7 +7,7 @@ import { Character } from '../../models/character.model';
   selector: 'app-card',
   imports: [NgOptimizedImage],
   templateUrl: './card.html',
-  styles: ``,
+  styleUrl: './card.css',
 })
 export class Card {
   character = input.required<Character>();

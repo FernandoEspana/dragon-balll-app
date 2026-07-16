@@ -1,0 +1,29 @@
+@keyframes ring-pulse {
+  0%,
+  100% {
+    border-color: rgba(234, 179, 8, 0.6);
+    box-shadow: 0 0 20px rgba(234, 179, 8, 0.45);
+  }
+  50% {
+    border-color: rgba(234, 179, 8, 1);
+    box-shadow: 0 0 34px rgba(234, 179, 8, 0.9);
+  }
+}
+
+.ring-animated {
+  animation: ring-pulse 2.6s ease-in-out infinite;
+}
+
+/* Lift the character above the ring on hover */
+.ring-animated:hover {
+  z-index: 10;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ring-animated {
+    animation: none;
+  }
+  .char-img {
+    transition: none;
+  }
+}
