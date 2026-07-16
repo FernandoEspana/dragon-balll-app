@@ -1,0 +1,36 @@
+name: Claude PR Description
+
+on:
+  pull_request:
+    types: [opened, reopened]
+
+jobs:
+  claude-pr-description:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+      id-token: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Fill PR description
+        id: claude-pr-description
+        uses: anthropics/claude-code-action@v1
+        with:
+          claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          claude_args: '--allowed-tools "Bash(gh pr view:*),Bash(gh pr diff:*),Bash(gh pr edit:*)"'
+          prompt: |
+            Write the description for PR #${{ github.event.pull_request.number }} in repo ${{ github.repository }}.
+
+            Steps:
+            1. Read the diff: `gh pr diff ${{ github.event.pull_request.number }}`.
+            2. Follow the structure in `.github/pull_request_template.md` (Summary, Changes, Accessibility, How to test). Fill every placeholder with real content from the diff. Omit the Accessibility section if it does not apply.
+            3. Write the body in English.
+            4. Set it with: `gh pr edit ${{ github.event.pull_request.number }} --body "<your description>"`.
+
+            Do not modify code or files. Only update the PR description.
