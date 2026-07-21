@@ -1,8 +1,10 @@
 <article
   class="relative flex w-full max-w-85 flex-col items-center gap-4 overflow-hidden rounded-3xl border border-neutral-800 bg-neutral-900/80 px-6 pb-6 pt-8 shadow-[0_0_30px_rgba(250,204,21,0.08)]"
 >
-  <div
-    class="ring-animated group relative flex h-36 w-36 cursor-pointer items-center justify-center rounded-full border-4 border-yellow-500/60 shadow-[0_0_20px_rgba(234,179,8,0.45)]"
+  <a
+    [routerLink]="['/characters', character().id]"
+    [attr.aria-label]="'Ver detalle de ' + character().name"
+    class="ring-animated group relative flex h-36 w-36 cursor-pointer items-center justify-center rounded-full border-4 border-yellow-500/60 shadow-[0_0_20px_rgba(234,179,8,0.45)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-yellow-400"
   >
     <div
       class="relative h-28 w-28 overflow-hidden rounded-full bg-black transition-[overflow] group-hover:overflow-visible"
@@ -22,7 +24,7 @@
         {{ character().affiliation }}
       </span>
     }
-  </div>
+  </a>
 
   <div class="flex flex-col items-center gap-1">
     <h3 class="w-full truncate text-center text-2xl font-extrabold tracking-wide text-white">

@@ -1,0 +1,52 @@
+<main class="min-h-dvh bg-neutral-950 p-8 text-white">
+  @if (character(); as c) {
+    <div class="mx-auto flex max-w-3xl flex-col gap-8">
+      <a routerLink="/characters" class="text-sm font-semibold text-yellow-400 hover:text-yellow-300">
+        ← Volver
+      </a>
+
+      <div class="flex flex-col items-center gap-6 sm:flex-row sm:items-start">
+        <div class="relative h-56 w-56 shrink-0 overflow-hidden rounded-3xl border border-neutral-800 bg-black">
+          <img [ngSrc]="c.image" [alt]="c.name" fill class="object-contain object-center" />
+        </div>
+
+        <div class="flex flex-col gap-3">
+          <h1 class="text-4xl font-extrabold tracking-wide">{{ c.name }}</h1>
+          <div class="flex flex-wrap gap-2 text-sm">
+            <span class="rounded-lg bg-neutral-800/60 px-3 py-1">Raza: {{ c.race }}</span>
+            <span class="rounded-lg bg-neutral-800/60 px-3 py-1">Género: {{ c.gender }}</span>
+            <span class="rounded-lg bg-neutral-800/60 px-3 py-1">Ki: {{ c.ki }}</span>
+            <span class="rounded-lg bg-neutral-800/60 px-3 py-1">Ki máx: {{ c.maxKi }}</span>
+          </div>
+          <p class="text-neutral-300">{{ c.description }}</p>
+        </div>
+      </div>
+
+      @if (c.originPlanet; as planet) {
+        <section class="flex flex-col gap-2">
+          <h2 class="text-2xl font-bold">Planeta de origen</h2>
+          <div class="flex items-center gap-4 rounded-xl border border-neutral-800 bg-neutral-900/80 p-4">
+            <span class="text-lg font-semibold text-white">{{ planet.name }}</span>
+            <span class="text-sm text-neutral-400">{{ planet.isDestroyed ? 'Destruido' : 'Intacto' }}</span>
+          </div>
+        </section>
+      }
+
+      @if (c.transformations.length) {
+        <section class="flex flex-col gap-3">
+          <h2 class="text-2xl font-bold">Transformaciones</h2>
+          <ul class="flex flex-wrap gap-3">
+            @for (t of c.transformations; track t.id) {
+              <li class="rounded-xl border border-neutral-800 bg-neutral-900/80 px-4 py-2">
+                <span class="font-semibold">{{ t.name }}</span>
+                <span class="ml-2 text-sm text-neutral-400">Ki: {{ t.ki }}</span>
+              </li>
+            }
+          </ul>
+        </section>
+      }
+    </div>
+  } @else {
+    <p class="text-center text-neutral-400">Cargando personaje…</p>
+  }
+</main>
